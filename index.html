@@ -6,7 +6,7 @@
 <title>KLICK YELL — Haute Creative Studio</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Plus+Jakarta+Sans:wght@200;300;400;500;700&display=swap" rel="stylesheet">
 <style>
-  /* --- 1. BRAND INTELLIGENCE COLORS (DIRECT MATCH) --- */
+
   :root {
     --bg: #050505;
     --text: #f5f7fa;
@@ -33,7 +33,6 @@
     --glow: rgba(2, 132, 199, 0.02);
   }
 
-  /* --- 2. RESET & FOUNDATION --- */
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; letter-spacing: -0.01em; }
   body {
@@ -45,7 +44,6 @@
     transition: background 0.8s cubic-bezier(0.25, 1, 0.5, 1), color 0.8s ease;
   }
 
-  /* --- 3. PREMIUM ANIMATION OVERLAYS --- */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -53,7 +51,6 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* --- 4. NAVIGATION ARCHITECTURE --- */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 2000;
     display: flex; align-items: center; justify-content: space-between;
@@ -96,14 +93,12 @@
   .feature-text-block { max-width: 480px; }
   .feature-text-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1rem; color: var(--text); }
 
-  /* HERO SUITE */
   .hero { height: 100vh; text-align: center; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 50%, var(--glow) 0%, transparent 70%); }
   .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(4.5rem, 14vw, 10rem); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -1px; }
   .hero-title span { font-style: italic; color: var(--accent); }
 
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; }
   
-  /* GALLERY VARIATION COUTURE */
   .logo-variation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
   .variation-card {
     background: var(--card-bg);
@@ -118,7 +113,6 @@
   .variation-label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; color: var(--text-dim); }
   .variation-card:hover .variation-label { color: var(--text); }
 
-  /* PREMIUM GALLERY IMAGES */
   .visual-wrapper { perspective: 2000px; width: 100%; }
   .visual-3d {
     background: var(--card-bg);
@@ -147,7 +141,6 @@
   .bcard-group { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; }
   .mockup-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; width: 100%; margin-top: 2rem; }
   
-  /* BRAND COLORS MOCKUP */
   .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
   .color-card { overflow: hidden; border: 1px solid var(--border); background: var(--card-bg); }
   .color-block { height: 180px; position: relative; }
@@ -160,7 +153,6 @@
   .gradient-strip { margin-top: 2.5rem; border: 1px solid var(--border); }
   .gradient-visual { height: 25px; background: linear-gradient(90deg, #050505 0%, #0077C2 40%, #45B6FE 70%, #f5f7fa 100%); opacity: 0.9; }
 
-  /* FINE TYPOGRAPHY MODULES */
   .typo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 1rem; }
   .typo-panel { background: var(--card-bg); border: 1px solid var(--border); padding: 3rem; position: relative; }
   .typo-tag { font-size: 0.6rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); }
@@ -169,7 +161,6 @@
   .typo-pill-container { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .typo-pill { border: 1px solid var(--border); color: var(--text-dim); padding: 4px 14px; font-size: 0.6rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
 
-  /* CASE STUDIES MODULE */
   .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
   .card-item { background: var(--card-bg); border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.6s ease; }
   .card-item:hover { border-color: var(--accent); }
@@ -179,7 +170,6 @@
   .card-content { padding: 1.8rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 1.2rem; }
   .card-content h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; letter-spacing: 0.5px; }
   
-  /* PREMIUM SYSTEM LINK BUTTON */
   .btn-lux {
     display: inline-block;
     padding: 0.5rem 1.4rem;
@@ -200,14 +190,12 @@
     transform: translateY(-2px);
   }
 
-  /* COUTURE STUDIO FOOTER */
   footer { padding: 140px 5% 80px; border-top: 1px solid var(--border); text-align: center; background: radial-gradient(circle at 50% 100%, var(--glow) 0%, transparent 60%); }
   .footer-brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.2rem; letter-spacing: 4px; }
   .footer-brand span { font-style: italic; color: var(--accent); }
   .footer-names { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 9px; margin-top: 2.5rem; color: var(--text); text-indent: 9px; }
   .footer-meta { font-size: 0.75rem; color: var(--text-dim); margin-top: 1.5rem; font-weight: 300; letter-spacing: 1px; }
 
-  /* RESPONSE OVERRIDE MAPS */
   @media (max-width: 1024px) {
     .grid-2, .flyer-grid-3, .mockup-grid, .logo-variation-grid, .typo-grid { grid-template-columns: 1fr; gap: 4rem; }
     .nav-links { display: none; }
@@ -528,7 +516,6 @@
 </footer>
 
 <script>
-  /* --- LUX DESIGN ENGINE RUNTIMES --- */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -536,7 +523,6 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  /* --- LOGO ROTATION MECHANICS --- */
   function swapLogo(element) {
     const mainDisplay = document.getElementById('main-logo-display');
     const mainLabel = document.getElementById('main-logo-label');
@@ -554,7 +540,6 @@
     }, 300);
   }
 
-  /* --- COUTURE INTERFACE CONTROLLER --- */
   const toggleBtn = document.getElementById('theme-toggle');
   const body = document.body;
   
@@ -570,7 +555,6 @@
   body.setAttribute('data-theme', savedTheme);
   toggleBtn.innerText = savedTheme === 'dark' ? 'LIGHT MODE' : 'DARK MODE';
 
-  /* --- SCROLL TRACKING OVERLAY --- */
   window.addEventListener('scroll', () => {
     const progressBar = document.getElementById('progress-bar');
     const winScroll = document.documentElement.scrollTop || body.scrollTop;
@@ -578,8 +562,6 @@
     const scrolled = (winScroll / height) * 100;
     progressBar.style.width = scrolled + "%";
   });
-
-  /* --- SMOOTH INDEPENDENT CANVAS TILT --- */
   document.querySelectorAll('.visual-3d').forEach(item => {
     item.addEventListener('mousemove', (e) => {
       if (window.innerWidth < 1024) return;
