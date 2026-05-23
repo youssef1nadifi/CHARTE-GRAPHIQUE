@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KLICK YELL — Haute Creative Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Plus+Jakarta+Sans:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* --- 1. BRAND INTELLIGENCE COLORS (DIRECT MATCH) --- */
+  :root {
+    --bg: #050505;
+    --text: #f5f7fa;
+    --text-dim: rgba(255, 255, 255, 0.55);
+    --accent: #0077C2;       /* Logo Primary Blue */
+    --accent-light: #45B6FE; /* Logo Sky Blue Accent */
+    --card-bg: rgba(255, 255, 255, 0.015);
+    --border: rgba(255, 255, 255, 0.05);
+    --glass: rgba(5, 5, 5, 0.9);
+    --shadow: rgba(0, 0, 0, 0.7);
+    --glow: rgba(0, 119, 194, 0.06); /* Custom Blue Ambient Glow */
+  }
+
+  [data-theme="light"] {
+    --bg: #f8fafc; 
+    --text: #0f172a;
+    --text-dim: rgba(15, 23, 42, 0.65);
+    --accent: #0284c7; 
+    --accent-light: #38bdf8;
+    --card-bg: #ffffff;
+    --border: rgba(0, 0, 0, 0.05);
+    --glass: rgba(248, 250, 252, 0.9);
+    --shadow: rgba(2, 132, 199, 0.04);
+    --glow: rgba(2, 132, 199, 0.02);
+  }
+
+  /* --- 2. RESET & FOUNDATION --- */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; letter-spacing: -0.01em; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.8;
+    overflow-x: hidden;
+    transition: background 0.8s cubic-bezier(0.25, 1, 0.5, 1), color 0.8s ease;
+  }
+
+  /* --- 3. PREMIUM ANIMATION OVERLAYS --- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* --- 4. NAVIGATION ARCHITECTURE --- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 2000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 5%;
+    background: var(--glass);
+    backdrop-filter: blur(30px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo-area { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .logo-img { width: 34px; height: 34px; object-fit: cover; border-radius: 50%; border: 1px solid var(--accent); padding: 2px; }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--text); letter-spacing: 3px; }
+  .nav-logo-text span { color: var(--accent); font-style: italic; }
+  .nav-links { display: flex; gap: 2.2rem; align-items: center; }
+  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; transition: 0.4s; letter-spacing: 2px; }
+  .nav-links a:hover { color: var(--accent-light); }
+  
+  .scroll-progress {
+    position: absolute; bottom: 0; left: 0; height: 1px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); width: 0%; transition: width 0.1s linear;
+  }
+
+  #theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding: 0 5px;
+  }
+  #theme-toggle:hover { color: var(--accent-light); }
+
+  /* --- 5. LUXURY BRAND PRESENTATION LAYOUTS --- */
+  section { min-height: 100vh; padding: 160px 10% 120px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .section-label { font-size: 0.7rem; color: var(--accent-light); font-weight: 600; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 1.5rem; display: block; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.1; margin-bottom: 2.5rem; }
+  .section-title span { font-style: italic; font-weight: 300; color: var(--accent); }
+  .description { max-width: 550px; color: var(--text-dim); margin-bottom: 1.5rem; font-size: 1.05rem; font-weight: 300; line-height: 1.9; }
+  .feature-text-block { max-width: 480px; }
+  .feature-text-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1rem; color: var(--text); }
+
+  /* HERO SUITE */
+  .hero { height: 100vh; text-align: center; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 50%, var(--glow) 0%, transparent 70%); }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(4.5rem, 14vw, 10rem); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -1px; }
+  .hero-title span { font-style: italic; color: var(--accent); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; }
+  
+  /* GALLERY VARIATION COUTURE */
+  .logo-variation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
+  .variation-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 2.5rem 1.5rem; 
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+  .variation-card:hover { border-color: var(--accent-light); background: transparent; }
+  .variation-card img { max-width: 55px; margin-bottom: 2rem; transition: transform 0.6s ease; pointer-events: none; }
+  .variation-label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; color: var(--text-dim); }
+  .variation-card:hover .variation-label { color: var(--text); }
+
+  /* PREMIUM GALLERY IMAGES */
+  .visual-wrapper { perspective: 2000px; width: 100%; }
+  .visual-3d {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease-out, box-shadow 0.5s ease, border-color 0.5s ease;
+    transform-style: preserve-3d;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  .visual-3d:hover { border-color: rgba(0, 119, 194, 0.25); box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 30px var(--glow); }
+  .visual-3d img { max-width: 100%; height: auto; max-height: 520px; object-fit: contain; filter: grayscale(0.15); transition: all 0.8s ease; }
+  .visual-3d:hover img { filter: grayscale(0); }
+
+  .item-label {
+    position: absolute; bottom: 20px; left: 0; right: 0;
+    text-align: center; font-size: 0.6rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 3px; color: var(--accent-light);
+    opacity: 0.6;
+  }
+
+  .flyer-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+  .bcard-group { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; }
+  .mockup-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; width: 100%; margin-top: 2rem; }
+  
+  /* BRAND COLORS MOCKUP */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+  .color-card { overflow: hidden; border: 1px solid var(--border); background: var(--card-bg); }
+  .color-block { height: 180px; position: relative; }
+  .color-meta-tag { position: absolute; bottom: 16px; left: 16px; font-size: 0.55rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); mix-blend-mode: difference; }
+  .color-info { padding: 1.5rem; }
+  .color-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 2px; }
+  .color-hex { color: var(--accent-light); font-size: 0.75rem; font-family: monospace; }
+  .color-desc { color: var(--text-dim); font-size: 0.75rem; margin-top: 12px; font-weight: 300; line-height: 1.6; }
+  
+  .gradient-strip { margin-top: 2.5rem; border: 1px solid var(--border); }
+  .gradient-visual { height: 25px; background: linear-gradient(90deg, #050505 0%, #0077C2 40%, #45B6FE 70%, #f5f7fa 100%); opacity: 0.9; }
+
+  /* FINE TYPOGRAPHY MODULES */
+  .typo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 1rem; }
+  .typo-panel { background: var(--card-bg); border: 1px solid var(--border); padding: 3rem; position: relative; }
+  .typo-tag { font-size: 0.6rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); }
+  .typo-name { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; margin: 0.5rem 0 1.5rem; color: var(--text); }
+  .typo-spec-box { border-top: 1px solid var(--border); padding-top: 2rem; }
+  .typo-pill-container { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .typo-pill { border: 1px solid var(--border); color: var(--text-dim); padding: 4px 14px; font-size: 0.6rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* CASE STUDIES MODULE */
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+  .card-item { background: var(--card-bg); border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.6s ease; }
+  .card-item:hover { border-color: var(--accent); }
+  .card-img-area { width: 100%; height: 240px; background: #000; overflow: hidden; position: relative; }
+  .card-img-area img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0.7; }
+  .card-item:hover .card-img-area img { transform: scale(1.03); opacity: 0.95; }
+  .card-content { padding: 1.8rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 1.2rem; }
+  .card-content h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; letter-spacing: 0.5px; }
+  
+  /* PREMIUM SYSTEM LINK BUTTON */
+  .btn-lux {
+    display: inline-block;
+    padding: 0.5rem 1.4rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid var(--border);
+    background: transparent;
+    transition: all 0.4s ease;
+  }
+  .btn-lux:hover {
+    color: var(--bg);
+    background: var(--text);
+    border-color: var(--text);
+    transform: translateY(-2px);
+  }
+
+  /* COUTURE STUDIO FOOTER */
+  footer { padding: 140px 5% 80px; border-top: 1px solid var(--border); text-align: center; background: radial-gradient(circle at 50% 100%, var(--glow) 0%, transparent 60%); }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.2rem; letter-spacing: 4px; }
+  .footer-brand span { font-style: italic; color: var(--accent); }
+  .footer-names { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 9px; margin-top: 2.5rem; color: var(--text); text-indent: 9px; }
+  .footer-meta { font-size: 0.75rem; color: var(--text-dim); margin-top: 1.5rem; font-weight: 300; letter-spacing: 1px; }
+
+  /* RESPONSE OVERRIDE MAPS */
+  @media (max-width: 1024px) {
+    .grid-2, .flyer-grid-3, .mockup-grid, .logo-variation-grid, .typo-grid { grid-template-columns: 1fr; gap: 4rem; }
+    .nav-links { display: none; }
+    section { padding: 140px 6% 100px; }
+    .hero-title { font-size: 6.5rem; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<nav>
+  <a href="#" class="nav-logo-area">
+    <img src="https://i.pinimg.com/736x/0c/fe/cb/0cfecbd40ebb78044a9c6438d0b95482.jpg" alt="Logo Mark" class="logo-img">
+    <span class="nav-logo-text">KLICK<span>YELL</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">Philosophy</a>
+    <a href="#logo">Logo</a>
+    <a href="#cards">Stationery</a>
+    <a href="#flyer">Flyers</a>
+    <a href="#rollup">Exhibition</a>
+    <a href="#mockups">Mockups</a>
+    <a href="#colors">Couleurs</a>
+    <a href="#typography">Typographie</a>
+    <a href="#projects">Projects</a>
+    <button id="theme-toggle">THEME</button>
+  </div>
+  <div class="scroll-progress" id="progress-bar"></div>
+</nav>
+
+<section class="hero">
+  <div class="reveal">
+    <span class="section-label">PFE Graduation Architecture 2025</span>
+    <h1 class="hero-title">KLICK<span>YELL</span></h1>
+    <p class="description" style="margin: 1.5rem auto 0; text-align: center; font-size: 1.15rem; letter-spacing: 1px;">Strategic asset design and brand-aligned digital development architecture.</p>
+  </div>
+</section>
+
+<section id="about" class="reveal">
+  <span class="section-label">01 / Introduction</span>
+  <h2 class="section-title">The Art of <span>Code & Precision</span></h2>
+  <div class="grid-2">
+    <p class="description">KLICK YELL functions as an integrated boutique digital agency. We operate at the intersection of complex architectural precision and unified corporate storytelling, structuring identities that breathe seamlessly across hardware touchpoints.</p>
+    <div class="visual-wrapper">
+      <div class="visual-3d" style="padding: 5rem 2rem;">
+         <div style="text-align: center;">
+            <div style="font-size: 5rem; font-family:'Cormorant Garamond', serif; font-weight: 300; color: var(--accent); line-height: 1;">12 &mdash; 00</div>
+            <p style="letter-spacing: 4px; font-size: 0.65rem; font-weight: 500; opacity: 0.8; text-transform: uppercase; margin-top: 1rem;">Bespoke Deliveries Completed</p>
+         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="logo" class="reveal">
+  <span class="section-label">02 / Identity</span>
+  <h2 class="section-title">The Brand <span>Essence</span></h2>
+  <div class="grid-2">
+    <div class="visual-wrapper">
+      <div class="visual-3d" style="height: 380px;">
+        <img src="https://i.pinimg.com/736x/0c/fe/cb/0cfecbd40ebb78044a9c6438d0b95482.jpg" id="main-logo-display" alt="Primary Studio Logo Asset">
+        <div class="item-label" id="main-logo-label">Active Preview Matrix</div>
+      </div>
+    </div>
+    <div>
+      <div class="feature-text-block">
+        <h3>Adaptive Emblem</h3>
+        <p class="description">The central mark balances solid structural lines and technical symmetry, encapsulating the duality of precise development and fluid multimedia graphics. Designed to maintain its graphic integrity across digital viewports and laser-etched physical textures.</p>
+      </div>
+      
+      <div class="logo-variation-grid">
+        <div class="variation-card" onclick="swapLogo(this)">
+          <img src="https://i.pinimg.com/736x/0c/fe/cb/0cfecbd40ebb78044a9c6438d0b95482.jpg" alt="Variant Blue">
+          <span class="variation-label">Pure Blue</span>
+        </div>
+        <div class="variation-card" onclick="swapLogo(this)">
+          <img src="https://i.pinimg.com/736x/0c/fe/cb/0cfecbd40ebb78044a9c6438d0b95482.jpg" alt="Variant Monochrome" style="filter: grayscale(1) brightness(1.5);">
+          <span class="variation-label">Monochrome</span>
+        </div>
+        <div class="variation-card" onclick="swapLogo(this)">
+          <img src="https://i.pinimg.com/736x/0c/fe/cb/0cfecbd40ebb78044a9c6438d0b95482.jpg" alt="Variant Soft" style="filter: hue-rotate(180deg);">
+          <span class="variation-label">Accent Soft</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cards" class="reveal">
+  <span class="section-label">03 / Stationery</span>
+  <h2 class="section-title">Tactile <span>Networking</span></h2>
+  <div class="grid-2">
+    <div class="feature-text-block">
+      <h3>Business Cards</h3>
+      <p class="description">A high-end double-sided corporate contact architecture designed to bridge physical handshakes with digital entry points. It utilizes balanced typographic hierarchy, rich negative margins, and targeted application of the brand's core signature blue hues to command sensory attention upon executive trade introductions.</p>
+    </div>
+    <div class="bcard-group">
+      <div class="visual-wrapper"><div class="visual-3d"><img src="https://i.pinimg.com/736x/21/71/61/217161b7423744ee85ee4431d562a004.jpg" alt="Couture Card Surface Facing"></div></div>
+      <div class="visual-wrapper"><div class="visual-3d"><img src="https://i.pinimg.com/736x/c0/4d/9b/c04d9b27833b51042d0e9393ebb655e0.jpg" alt="Couture Card Base Facing"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="flyer" class="reveal">
+  <span class="section-label">04 / Marketing</span>
+  <h2 class="section-title">Editorial <span>Campaigns</span></h2>
+  <div class="feature-text-block">
+    <h3>Promotional Flyers</h3>
+    <p class="description">A collection of strategic commercial layouts built around editorial content grids. These print-ready items discard cluttered marketing blocks in favor of high-end whitespace, structured vertical copy lines, and bold cinematic focal sections that amplify promotional giveaways or upcoming agency announcements.</p>
+  </div>
+  <div class="flyer-grid-3">
+    <div class="visual-wrapper"><div class="visual-3d" style="height: 440px;"><img src="https://i.pinimg.com/736x/fc/d8/e9/fcd8e935b783a9c1017f2acb45337972.jpg" alt="Editorial Portfolio Cover A"></div></div>
+    <div class="visual-wrapper"><div class="visual-3d" style="height: 440px;"><img src="https://i.pinimg.com/736x/75/2e/ab/752eab29cfcfd8fe6c8e68f1c369a43e.jpg" alt="Editorial Portfolio Cover B"></div></div>
+    <div class="visual-wrapper"><div class="visual-3d" style="height: 440px;"><img src="https://i.pinimg.com/736x/1f/eb/7b/1feb7b89c78c5a583e5b033dadfcd02f.jpg" alt="Editorial Portfolio Cover C"></div></div>
+  </div>
+</section>
+
+<section id="rollup" class="reveal">
+  <span class="section-label">05 / Large Format</span>
+  <h2 class="section-title">Spatial <span>Presence</span></h2>
+  <div class="grid-2">
+    <div class="feature-text-block">
+      <h3>Exhibition Banner</h3>
+      <p class="description">An architectural 2-meter tall physical presence system engineered specifically for spatial orientation inside elite showcase galleries, trade exhibitions, and conference hall environments. Its composition balances extreme verticality with large-scale corporate titles to maintain premium readability from distant viewing angles.</p>
+    </div>
+    <div class="visual-wrapper">
+      <div class="visual-3d" style="width: 280px; height: 530px; margin: 0 auto; padding: 12px;">
+        <img src="https://i.pinimg.com/736x/d1/07/06/d107060db196400429c04217ce16be41.jpg" style="height: 100%; object-fit: cover;" alt="Large Scale Banner Render">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mockups" class="reveal">
+  <span class="section-label">06 / Ecosystem</span>
+  <h2 class="section-title">Digital <span>Touchpoints</span></h2>
+  <p class="description">Translating brand identity layers organically across complex responsive devices and interactive hardware touchpoints to showcase product cohesion.</p>
+  <div class="mockup-grid">
+    <div class="visual-wrapper">
+      <div class="visual-3d" style="height: 480px;">
+        <img src="https://i.pinimg.com/736x/1a/46/e7/1a46e7d1c73b73b54fca475849d0018e.jpg" alt="Mobile Ecosystem Matrix">
+        <div class="item-label">Mobile Frame — UI Adaptability</div>
+      </div>
+    </div>
+    <div class="visual-wrapper">
+      <div class="visual-3d" style="height: 480px;">
+        <img src="https://i.pinimg.com/736x/5b/e5/04/5be5041c7eeae5959362e4d5137199c8.jpg" alt="Physical Access Identity Token">
+        <div class="item-label">Access Token — Corporate Merchandising</div>
+      </div>
+    </div>
+    <div class="visual-wrapper">
+      <div class="visual-3d" style="height: 480px;">
+        <img src="https://i.pinimg.com/736x/fb/d1/fb/fbd1fbe045b043963135705f11b5ab08.jpg" alt="Tablet Portfolio Presentation">
+        <div class="item-label">Tablet Frame — Responsive Layout Scalability</div>
+      </div>
+    </div>
+    <div class="visual-wrapper">
+      <div class="visual-3d" style="height: 480px;">
+        <img src="https://i.pinimg.com/736x/c9/89/dc/c989dc6e7736f293a99771ee6a30e1db.jpg" alt="Micro Wearable Interface Asset">
+        <div class="item-label">Wearable Engine — Compact Display Testing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="colors" class="reveal">
+  <span class="section-label">07 / Chromatique</span>
+  <h2 class="section-title">La Palette <span>Intemporelle</span></h2>
+  <p class="description">Une sélection de tons fondamentaux tirés directement du logo officiel, structurant un univers à la fois technologique, sobre et audacieux.</p>
+
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="color-block" style="background: #0077C2;">
+        <span class="color-meta-tag">Primary Blue</span>
+      </div>
+      <div class="color-info">
+        <p class="color-name">Bleu Impérial</p>
+        <p class="color-hex">#0077C2</p>
+        <p class="color-desc">Symbole d'autorité structurelle, de clarté analytique et de rigueur.</p>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-block" style="background: #45B6FE;">
+        <span class="color-meta-tag">Vibrant Light</span>
+      </div>
+      <div class="color-info">
+        <p class="color-name">Lumière d'Opale</p>
+        <p class="color-hex">#45B6FE</p>
+        <p class="color-desc">Une tension chromatique fluide apportant lisibilité et relief moderne.</p>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-block" style="background: #050505;">
+        <span class="color-meta-tag">Deep Dark</span>
+      </div>
+      <div class="color-info">
+        <p class="color-name">Obsidienne Pure</p>
+        <p class="color-hex">#050505</p>
+        <p class="color-desc">Élégance nocturne absolue, minimisant la fatigue visuelle avec raffinement.</p>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-block" style="background: #f5f7fa;">
+        <span class="color-meta-tag">Soft Light</span>
+      </div>
+      <div class="color-info">
+        <p class="color-name">Blanc d'Albâtre</p>
+        <p class="color-hex">#F5F7FA</p>
+        <p class="color-desc">Contraste soyeux qui magnifie l'équilibre des espaces et des lignes fines.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gradient-strip">
+    <div class="gradient-visual"></div>
+  </div>
+</section>
+
+<section id="typography" class="reveal">
+  <span class="section-label">08 / Typographie</span>
+  <h2 class="section-title">L'Équilibre <span>Éditorial</span></h2>
+  <p class="description">L'association méticuleuse d'un sérif de haute couture pour les titres et d'un sans-serif géométrique moderne.</p>
+
+  <div class="typo-grid">
+    <div class="typo-panel">
+      <span class="typo-tag">Display Typography</span>
+      <h3 class="typo-name">Cormorant Garamond</h3>
+      <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 2rem; font-weight: 300;">Titres souverains, Luxe discret, Rythme asymétrique</p>
+
+      <div class="typo-spec-box">
+        <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.5rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 0.4rem; line-height:1.2;">Aa Bb Cc Dd Ee Ff</p>
+        <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 2.3rem; color: var(--text-dim); letter-spacing: 2px; margin-bottom: 1.2rem; line-height:1.2;">Nn Oo Pp Qq Rr Ss Tt</p>
+        <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; color: var(--text); letter-spacing: 3px;">0123456789</p>
+      </div>
+
+      <div class="typo-pill-container">
+        <span class="typo-pill">Light 300</span>
+        <span class="typo-pill">Regular 400</span>
+        <span class="typo-pill">Italic Swash</span>
+      </div>
+    </div>
+
+    <div class="typo-panel">
+      <span class="typo-tag">Functional Interface Font</span>
+      <h3 class="typo-name">Plus Jakarta Sans</h3>
+      <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 2rem; font-weight: 300;">Données d'ingénierie, Micro-copies, Paramètres UI</p>
+
+      <div class="typo-spec-box">
+        <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.05rem; color: var(--text); margin-bottom: 1.2rem; line-height: 1.6; font-weight: 300;">
+          Light 300 &mdash; Regular 400 &mdash; Medium 500 &mdash; Bold 700
+        </p>
+        <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: var(--text-dim); line-height: 1.9; font-weight: 300;">
+          La lisibilité reste absolue, matérialisant une infrastructure propre adaptée aux exigences du développement haut de gamme.
+        </p>
+      </div>
+
+      <div class="typo-pill-container">
+        <span class="typo-pill">Wght 200</span>
+        <span class="typo-pill">Wght 400</span>
+        <span class="typo-pill">Wght 700</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="reveal">
+  <span class="section-label">09 / Études de Cas</span>
+  <h2 class="section-title">Selected <span>Portfolio</span></h2>
+  <div class="project-grid">
+    <div class="card-item">
+      <div class="card-img-area">
+        <img src="Screenshot 2026-05-23 234005.jpg" alt="Rizqou Pro Luxury E-Commerce Framework">
+      </div>
+      <div class="card-content">
+        <div>
+          <h4>Rizqou Pro</h4>
+          <p style="font-size: 0.75rem; color: var(--text-dim); font-weight: 300; margin-top: 4px; line-height: 1.4;">Bespoke dynamic apparel showcase running on optimized high-performance framework systems.</p>
+        </div>
+        <a href="https://red-1-six.vercel.app/" target="_blank" class="btn-lux">Launch Site</a>
+      </div>
+    </div>
+    
+    <div class="card-item">
+      <div class="card-img-area">
+        <img src="Screenshot 2026-05-24 001103.jpg" alt="Air Kicks Sneaker Store Platform">
+      </div>
+      <div class="card-content">
+        <div>
+          <h4>Air Kicks</h4>
+          <p style="font-size: 0.75rem; color: var(--text-dim); font-weight: 300; margin-top: 4px; line-height: 1.4;">Cinematic sneaker boutique architecture highlighting limited drops via high-contrast layout configurations.</p>
+        </div>
+        <a href="https://air-kicks-psi.vercel.app/" target="_blank" class="btn-lux">Launch Site</a>
+      </div>
+    </div>
+    
+    <div class="card-item">
+      <div class="card-img-area">
+        <img src="Screenshot 2026-05-24 002111.jpg" alt="Marrakech Cultural Exploration System">
+      </div>
+      <div class="card-content">
+        <div>
+          <h4>Marrakech Heritage</h4>
+          <p style="font-size: 0.75rem; color: var(--text-dim); font-weight: 300; margin-top: 4px; line-height: 1.4;">Premium regional travel documentation mapping historical landmarks and heritage landmarks with editorial precision.</p>
+        </div>
+        <a href="https://marrakech-eta.vercel.app/" target="_blank" class="btn-lux">Launch Site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">KLICK<span>YELL</span> STUDIO</div>
+  <div class="footer-names">YOUSSEF ENNADIFI &nbsp;/ &nbsp;KHALID</div>
+  <p class="footer-meta">© 2025 KLICK YELL — ENSAO Graduation Thesis Digital Presentation Platform.<br>All Architectural Rights Reserved.</p>
+</footer>
+
+<script>
+  /* --- LUX DESIGN ENGINE RUNTIMES --- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* --- LOGO ROTATION MECHANICS --- */
+  function swapLogo(element) {
+    const mainDisplay = document.getElementById('main-logo-display');
+    const mainLabel = document.getElementById('main-logo-label');
+    const clickedImg = element.querySelector('img');
+    const clickedLabel = element.querySelector('.variation-label').innerText;
+    
+    mainDisplay.style.opacity = '0';
+    mainDisplay.style.transform = 'scale(0.98) rotate(-1deg)';
+    setTimeout(() => {
+      mainDisplay.src = clickedImg.src;
+      mainDisplay.style.filter = clickedImg.style.filter;
+      mainLabel.innerText = clickedLabel + " Concept";
+      mainDisplay.style.opacity = '1';
+      mainDisplay.style.transform = 'scale(1) rotate(0deg)';
+    }, 300);
+  }
+
+  /* --- COUTURE INTERFACE CONTROLLER --- */
+  const toggleBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+  
+  toggleBtn.addEventListener('click', () => {
+    const isDark = body.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+    toggleBtn.innerText = isDark ? 'DARK MODE' : 'LIGHT MODE';
+    localStorage.setItem('klick-couture-theme', newTheme);
+  });
+  
+  const savedTheme = localStorage.getItem('klick-couture-theme') || 'dark';
+  body.setAttribute('data-theme', savedTheme);
+  toggleBtn.innerText = savedTheme === 'dark' ? 'LIGHT MODE' : 'DARK MODE';
+
+  /* --- SCROLL TRACKING OVERLAY --- */
+  window.addEventListener('scroll', () => {
+    const progressBar = document.getElementById('progress-bar');
+    const winScroll = document.documentElement.scrollTop || body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + "%";
+  });
+
+  /* --- SMOOTH INDEPENDENT CANVAS TILT --- */
+  document.querySelectorAll('.visual-3d').forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+      if (window.innerWidth < 1024) return;
+      const rect = item.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 22;
+      const rotateY = (centerX - x) / 22;
+      
+      item.style.transform = `perspective(2000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+    });
+
+    item.addEventListener('mouseleave', () => {
+      item.style.transform = `perspective(2000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+  });
+</script>
+
+</body>
+</html>
